@@ -1,3 +1,5 @@
+
+/* pour l'api google maps installation de npm install --save angular2-google-maps format déprécié... a voir */
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
