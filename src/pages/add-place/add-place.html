@@ -1,18 +1,68 @@
-<!--
-  Generated template for the AddPlacePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>add-place</ion-title>
+    <ion-title>Ajouter un Lieu</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Titre</ion-label>
+        <ion-input type="text" placeholder="Beau graffiti..." name="title" ngModel required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-textarea name="description" ngModel required></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block outline type="button" icon-left (click)="onLocate()">
+            <ion-icon name="locate"></ion-icon>
+            Localise-moi
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button block outline type="button" icon-left (click)="onOpenMap()">
+            <ion-icon name="map"></ion-icon>
+            Sélectionner sur la carte
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>Lieu sélectionné...</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <h5>Prendre une photo ! </h5>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left block outline type="button" (click)="onTakePhoto()">
+            <ion-icon name="camera"></ion-icon>
+            Ouvrir appareil photo
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <!-- property binding pour le preview de l'image -->
+          <img [src]="">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button color="secondary" block type="submit" [disabled]="!f.valid">Ajout du lieu</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
