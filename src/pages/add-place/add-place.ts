@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, ModalController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
+import { SetLocationPage } from '../set-location/set-location';
 
 @IonicPage()
 @Component({
@@ -8,6 +9,8 @@ import { NgForm } from '@angular/forms';
   templateUrl: 'add-place.html',
 })
 export class AddPlacePage {
+  /* le modal est une surpage de la page - un overlay */
+  constructor(private modalCtrl: ModalController) { }
 
   onSubmit(form: NgForm) {
     console.log(form.value);
@@ -18,7 +21,8 @@ export class AddPlacePage {
   }
 
   onOpenMap() {
-
+    const modal = this.modalCtrl.create(SetLocationPage);
+    modal.present();
   }
 
   onTakePhoto() {
