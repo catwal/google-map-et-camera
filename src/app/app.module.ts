@@ -1,4 +1,9 @@
 
+/* pour faire marché l'app sur android:
+1-ionic cordova platform add android
+2- ionic cordova build android
+attention JDK9 donne message erreur mettre JDK8*/
+
 /* pour l'api google maps installation de npm install --save angular2-google-maps format déprécié... a voir
 bon package: npm install @agm/core --save */
 /* pour la geolocation sur le mobile:
@@ -22,6 +27,8 @@ import { PlacePage } from '../pages/place/place';
 import { SetLocationPage } from '../pages/set-location/set-location';
 /* import obligatoire pour la geolocalisation */
 import { Geolocation } from '@ionic-native/geolocation';
+/* import Camera */
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -51,7 +58,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Geolocation
-  ]
+    Geolocation,
+    Camera  ]
 })
 export class AppModule {}
