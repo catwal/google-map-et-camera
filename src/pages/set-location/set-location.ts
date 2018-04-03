@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { Location } from '../../models/location.models';
 
 
@@ -10,9 +10,28 @@ import { Location } from '../../models/location.models';
 })
 export class SetLocationPage {
   location: Location;
+  marker: Location;
+  /* pour gerer la gestion du modal confirme et abort j'ai besoin de view controller */
+  constructor(private navParams: NavParams,
+    private viewCtrl: ViewController) {
 
-  constructor(private navParams: NavParams) {
     /* la données va être récupérée de add-place */
     this.location = this.navParams.get('location');
+  }
+
+  onSetMarker(event: any) {
+    console.log(event);
+    this.marker = new Location(event.coords.lat, event.coords.lng);
+  }
+
+  onConfirm() {
+    /* transmettra l'objet JS des coordonnées du marker */
+    this.viewCtrl.dismiss({location: this.marker});
+
+  }
+
+  onAbort() {
+    /* this.viewCtrl <=> a la vue du modal */
+this.viewCtrl.dismiss();
   }
 }

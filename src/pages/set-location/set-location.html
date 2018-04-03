@@ -11,11 +11,21 @@
 <ion-grid>
   <ion-row>
     <ion-col>
-      <!-- composent qu'offre le package google map -->
+      <!-- composent qu'offre le package google map - affichage carte -->
       <agm-map [latitude]="location.lat" [longitude]="location.lng"
-      [zoom]="16">
-
+      [zoom]="16" (mapClick)="onSetMarker($event)">
+      <!-- composent package - marqueur sur la carte -->
+<agm-marker [latitude]="marker.lat" [longitude]="marker.lng"
+*ngIf="marker"> </agm-marker>
       </agm-map>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <button ion-button block color="secondary" (click)="onConfirm()" [disabled]="!marker">Confirmer</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button block color="danger" (click)="onAbort()">Annuler</button>
     </ion-col>
   </ion-row>
 </ion-grid>
