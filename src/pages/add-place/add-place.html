@@ -34,9 +34,12 @@
           </button>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <!-- n'apaprait que si locationisset est à true -->
+      <ion-row *ngIf="locationIsSet">
         <ion-col>
-          <p>Lieu sélectionné...</p>
+          <agm-map [latitude]="location.lat" [longitude]="location.lng" [zoom]="16">
+            <agm-marker [latitude]="location.lat" [longitude]="location.lng"></agm-marker>
+          </agm-map>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -60,7 +63,7 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <button ion-button color="secondary" block type="submit" [disabled]="!f.valid">Ajout du lieu</button>
+          <button ion-button color="secondary" block type="submit" [disabled]="!f.valid || !locationIsSet">Ajout du lieu</button>
         </ion-col>
       </ion-row>
     </ion-grid>
