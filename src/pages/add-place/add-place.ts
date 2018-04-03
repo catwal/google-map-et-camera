@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController } from 'ionic-angular';
+import { IonicPage, ModalController, LoadingController, ToastController } from 'ionic-angular';
+import {Geolocation} from '@ionic-native/geolocation';
+
 import { NgForm } from '@angular/forms';
 import { SetLocationPage } from '../set-location/set-location';
 import { Location } from '../../models/location.models';
@@ -18,14 +20,28 @@ export class AddPlacePage {
   locationIsSet = false;
   
   /* le modal est une surpage de la page - un overlay */
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController, private geolocation: Geolocation) { }
 
   onSubmit(form: NgForm) {
     console.log(form.value);
   }
 
   onLocate() {
+this.geolocation.getCurrentPosition()
+.then(
+  location =>{
+    /* anciennes données par défaut vont se transformer en celle de la geolocalisation */
+    this.location.lat = location.coords.latitude;
+    this.location.lng = location.coords.longitude;
+    this.locationIsSet = true;
+    console.log(location);
+  }
+)
+.catch(error =>{
+  console.log(error);
+}
 
+);
   }
 
   onOpenMap() {

@@ -1,6 +1,10 @@
 
 /* pour l'api google maps installation de npm install --save angular2-google-maps format déprécié... a voir
 bon package: npm install @agm/core --save */
+/* pour la geolocation sur le mobile:
+ionic cordova plugin add cordova-plugin-geolocation --variable GEOLOCATION_USAGE_DESCRIPTION="To locate you"
+npm install --save @ionic-native/geolocation
+ */
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -16,6 +20,8 @@ import { HomePage } from '../pages/home/home';
 import { AddPlacePage } from '../pages/add-place/add-place';
 import { PlacePage } from '../pages/place/place';
 import { SetLocationPage } from '../pages/set-location/set-location';
+/* import obligatoire pour la geolocalisation */
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,8 @@ import { SetLocationPage } from '../pages/set-location/set-location';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Geolocation
   ]
 })
 export class AppModule {}
