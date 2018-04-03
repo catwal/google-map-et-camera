@@ -24,10 +24,10 @@ export class HomePage {
     this.places = this.placesService.loadPlaces();
   }
 
-  onOpenPlace(place: Place) {
+  onOpenPlace(place: Place, index: number) {
     /* quand chargera la page place ce sera le modal sur la page place avec les 
     données JS */
-    const modal = this.modalCtrl.create(PlacePage, { place: place });
+    const modal = this.modalCtrl.create(PlacePage, { place: place, index: index });
     modal.present();
   }
 }
