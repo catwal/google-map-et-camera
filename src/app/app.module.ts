@@ -18,7 +18,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 /* pour que les composents google map foncitonnent il faut cet import
 et la déclaration dans import ngModule
 adresse pour avoir l'APIkey: https://angular-maps.com/  */
-import {AgmCoreModule} from "@agm/core";
+import { AgmCoreModule } from "@agm/core";
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -29,6 +29,7 @@ import { SetLocationPage } from '../pages/set-location/set-location';
 import { Geolocation } from '@ionic-native/geolocation';
 /* import Camera */
 import { Camera } from '@ionic-native/camera';
+import { PlacesService } from '../services/places.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { Camera } from '@ionic-native/camera';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AgmCoreModule.forRoot({
-     apiKey: 'AIzaSyBVDdhSlL4KXl489QC5W7ToGdOhPX9npZc'
+      apiKey: 'AIzaSyBVDdhSlL4KXl489QC5W7ToGdOhPX9npZc'
 
     })
   ],
@@ -57,8 +58,9 @@ import { Camera } from '@ionic-native/camera';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     Geolocation,
-    Camera  ]
+    Camera,
+    PlacesService]
 })
-export class AppModule {}
+export class AppModule { }

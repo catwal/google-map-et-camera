@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { SetLocationPage } from '../set-location/set-location';
 import { Location } from '../../models/location.models';
 import { Camera } from '@ionic-native/camera';
+import { PlacesService } from '../../services/places.service';
 
 @IonicPage()
 @Component({
@@ -20,14 +21,28 @@ export class AddPlacePage {
   /*nouvelle classe pour quand localisation est faite par le user - ici par défaut false */
   locationIsSet = false;
 
+  /* ajout de la propriété pour conservé les photos */
+  imageUrl = '';
+
+
   /* le modal est une surpage de la page - un overlay */
   constructor(private modalCtrl: ModalController,
     private geolocation: Geolocation,
     private loadingCtrl: LoadingController,
     private ToastCtrl: ToastController,
-    private camera: Camera) { }
+    private camera: Camera,
+    private placesService: PlacesService) { }
 
   onSubmit(form: NgForm) {
+    this.placesService.addPlace(form.value.title, form.value.descrption, this.location, this.imageUrl)
+    /* reset de l'ensemble des données */
+    form.reset();
+    this.location = {
+      lat: 40.7624324,
+      lng: -73.9759827
+    };
+    this.imageUrl = '';
+    this.locationIsSet = false;
     console.log(form.value);
   }
 
@@ -83,16 +98,17 @@ export class AddPlacePage {
       encodingType: this.camera.EncodingType.JPEG,
       correctOrientation: true
     })
-    .then(
-      imageData => {
-        console.log(imageData);
-      }
-    )
-    .catch(
-      error => {
-        console.log(error);
-      }
-    );
-    
+      .then(
+        imageData => {
+          this.imageUrl = imageData;
+          console.log(imageData);
+        }
+      )
+      .catch(
+        error => {
+          console.log(error);
+        }
+      );
+
   }
 }

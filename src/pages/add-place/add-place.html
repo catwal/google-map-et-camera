@@ -55,15 +55,15 @@
           </button>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="imageUrl != ''">
         <ion-col>
           <!-- property binding pour le preview de l'image -->
-          <img [src]="">
+          <img [src]="imageUrl">
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <button ion-button color="secondary" block type="submit" [disabled]="!f.valid || !locationIsSet">Ajout du lieu</button>
+          <button ion-button color="secondary" block type="submit" [disabled]="!f.valid || !locationIsSet || imageUrl == ''">Ajout du lieu</button>
         </ion-col>
       </ion-row>
     </ion-grid>
