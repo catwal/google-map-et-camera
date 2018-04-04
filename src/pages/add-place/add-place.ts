@@ -7,6 +7,10 @@ import { SetLocationPage } from '../set-location/set-location';
 import { Location } from '../../models/location.models';
 import { Camera } from '@ionic-native/camera';
 import { PlacesService } from '../../services/places.service';
+import { File, Entry, FileError } from '@ionic-native/file';
+import { Cordova } from '@ionic-native/core';
+
+declare var cordova: any;
 
 @IonicPage()
 @Component({
@@ -31,7 +35,8 @@ export class AddPlacePage {
     private loadingCtrl: LoadingController,
     private ToastCtrl: ToastController,
     private camera: Camera,
-    private placesService: PlacesService) { }
+    private placesService: PlacesService,
+    private file: File) { }
 
   onSubmit(form: NgForm) {
     this.placesService.addPlace(form.value.title, form.value.descrption, this.location, this.imageUrl)
@@ -100,12 +105,44 @@ export class AddPlacePage {
     })
       .then(
         imageData => {
+          /* definition du nom de l'image enregistré - expressions régulières - c'est pour pouvoir dire ou et avec quel nom
+          le fichier doit être enregistré*/
+          const currentName = imageData.replace(/^.*[\\\/]/, '');
+          const path = imageData.replace(/[^\/]*$/, '');
+          /* ancienne methode cordova - a voir si ça fonctionne */
+          this.file.moveFile(path, currentName, cordova.file.dataDirectory, currentName)
+          .then(
+            (data: Entry) => {
+              /* la propriété nativeURL enregistre l'image */
+              this.imageUrl = data.nativeURL;
+              this.camera.cleanup();
+/*   c'est une alternative
+            this.file.removeFile(path, currentName);
+ */            }
+          )
+          .catch(
+            (err: FileError) =>{
+              this.imageUrl='';
+              const toast = this.ToastCtrl.create({
+                message: 'Impossible d\'enregistrer l\'image',
+                duration: 2500
+              });
+              toast.present();
+              /* effacera l'image */
+              this.camera.cleanup();
+            }
+          );
           this.imageUrl = imageData;
           console.log(imageData);
         }
       )
       .catch(
         error => {
+          const toast = this.ToastCtrl.create({
+            message: 'Impossible de prendre l\'image',
+            duration: 2500
+          });
+          toast.present();
           console.log(error);
         }
       );
