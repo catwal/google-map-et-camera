@@ -9,7 +9,7 @@ import { Camera } from '@ionic-native/camera';
 import { PlacesService } from '../../services/places.service';
 import { File, Entry, FileError } from '@ionic-native/file';
 /* import non-utilisé a checker */
-/* import { Cordova } from '@ionic-native/core'; */
+import { Cordova } from '@ionic-native/core';
 
 declare var cordova: any;
 
