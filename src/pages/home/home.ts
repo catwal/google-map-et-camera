@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { AddPlacePage } from '../add-place/add-place';
 import { Place } from '../../models/place.models';
@@ -9,7 +9,7 @@ import { PlacePage } from '../place/place';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
   /* déclaration méthode et importation page */
   addPlacePage = AddPlacePage;
   places: Place[] = [];
@@ -30,4 +30,10 @@ export class HomePage {
     const modal = this.modalCtrl.create(PlacePage, { place: place, index: index });
     modal.present();
   }
+  /* au lancement de l'application j'aurais 
+  l'affichage des places déjà enregistrées */
+  ngOnInit() {
+    this.placesService.fetchPlaces();
+  }
+
 }

@@ -30,6 +30,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 /* import Camera */
 import { Camera } from '@ionic-native/camera';
 import { PlacesService } from '../services/places.service';
+import { IonicStorageModule } from '@ionic/storage';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,10 @@ import { PlacesService } from '../services/places.service';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBVDdhSlL4KXl489QC5W7ToGdOhPX9npZc'
 
-    })
+    }),
+    /* import obligatoire pour le storage */
+    IonicStorageModule.forRoot(),
+    File
   ],
   bootstrap: [IonicApp],
   entryComponents: [
