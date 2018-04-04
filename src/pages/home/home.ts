@@ -33,7 +33,10 @@ export class HomePage implements OnInit {
   /* au lancement de l'application j'aurais 
   l'affichage des places déjà enregistrées */
   ngOnInit() {
-    this.placesService.fetchPlaces();
+    this.placesService.fetchPlaces().
+    then(
+      (places: Place[])=>this.places = places
+    );
   }
 
 }

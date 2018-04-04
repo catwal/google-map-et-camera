@@ -109,8 +109,11 @@ export class AddPlacePage {
           le fichier doit être enregistré*/
           const currentName = imageData.replace(/^.*[\\\/]/, '');
           const path = imageData.replace(/[^\/]*$/, '');
+          /* pour éviter la réécriture du fichier sur le même nom de fichier et donc écrasement systématique - on utilise
+          date comme paramètre car celui-ci est unique*/
+          const newFileName = new Date().getUTCMilliseconds() + '.jpg';
           /* ancienne methode cordova - a voir si ça fonctionne */
-          this.file.moveFile(path, currentName, cordova.file.dataDirectory, currentName)
+          this.file.moveFile(path, currentName, cordova.file.dataDirectory, newFileName)
           .then(
             (data: Entry) => {
               /* la propriété nativeURL enregistre l'image */

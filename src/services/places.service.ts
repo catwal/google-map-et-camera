@@ -45,11 +45,12 @@ constructor(private storage: Storage, private file: File){}
     fetchPlaces(){
         /* récupération de la key - en cas de succès je récupère le tableau
         de données*/
-        this.storage.get('places')
+       return this.storage.get('places')
         .then(
             (places: Place[])=>{
                 /* ternaire */
                 this.places = places != null ? places : [];
+                return this.places;
             }
         )
         .catch(
