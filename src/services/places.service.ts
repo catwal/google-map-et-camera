@@ -8,7 +8,8 @@ import { Storage } from '@ionic/storage';
 
 import { File } from '@ionic-native/file';
 import { Injectable } from "@angular/core";
-
+/* toujours déclaré crodova pour savoir qu'il est dipsonible */
+declare var cordova: any;
 
 @Injectable()
 
@@ -23,7 +24,7 @@ constructor(private storage: Storage, private file: File){}
         this.places.push(place);
         /* set key & value = key et tableau des données */
          this.storage.set('places', this.places)
-         /* on a un promise en faisant ça donc */
+         /* on a un promise en faisant ça donc .then and .catch */
          .then(/* 
              data =>{
 
@@ -57,11 +58,13 @@ constructor(private storage: Storage, private file: File){}
     }
 
     deletePlace(index: number) {
+        /* pour pouvoir le supprimer dans la méthode removeFile il faut d'abord le récupérer */
+        const place = this.places[index];
         this.places.splice(index, 1);
         this.storage.set('places', this.places)
         .then(
             () =>{
-
+               this.removeFile(place); 
             }
         )
         .catch(
@@ -69,6 +72,16 @@ constructor(private storage: Storage, private file: File){}
         );
     }
     private removeFile(place: Place){
-      /*   const currentName = ; */
+        const currentName = place.imageUrl.replace(/^.*[\\\/]/, '');
+        this.file.removeFile(cordova.file.dataDirectory, currentName)
+        .then(
+            () => console.log('Fichier supprimer')
+        )
+        .catch(
+            ()=>{
+             console.log('Erreur lors de la suppression du fichier');
+             this.addPlace(place.title, place.description, place.location, place.imageUrl);
+            }
+        );
     }
 }
